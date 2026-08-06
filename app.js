@@ -162,7 +162,9 @@ window.addEventListener("load", function () {
 
     fetch(scriptURL, { method: "POST", body: new FormData(form) })
       .then(function () {
-        window.location.href = "/thankyou.html";
+        const appScript = document.querySelector('script[src$="app.js"]');
+        const siteRoot = appScript ? new URL(".", appScript.src) : new URL("/", window.location.href);
+        window.location.href = new URL("thankyou.html", siteRoot).href;
       })
       .catch(function (error) {
         if (spinner) {
